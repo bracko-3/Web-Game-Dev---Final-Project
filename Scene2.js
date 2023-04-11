@@ -7,9 +7,6 @@ class Scene2 extends Phaser.Scene {
         this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
         this.background.setOrigin(0, 0);
 
-        //this.ship = this.add.image(config.width/2 - 100, config.height/2, "ship");
-        //this.ship.angle += 90;
-
         this.player = this.physics.add.sprite(config.width/2 - 100, config.height/2, "player");
         this.player.angle += 90;
         this.player.play("thrust");
