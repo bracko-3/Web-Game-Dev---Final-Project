@@ -26,7 +26,6 @@ class Scene2 extends Phaser.Scene {
         const pipeOneDistance = 600;
         const pipeTwoDistance = 800;
         const pipeThreeDistance = 1000;
-        const pipeFourDistance = 1200;
 
         //------------------Pipe Row 1------------------------
         //Top Pipe
