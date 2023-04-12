@@ -11,6 +11,8 @@ class Scene1 extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 24
         });
+
+        this.load.image("pipe", "assets/images/pole.png");
     }
 
     create() {
