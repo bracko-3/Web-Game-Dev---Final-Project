@@ -13,7 +13,6 @@ class Scene2 extends Phaser.Scene {
         this.player.angle += 90;
         this.player.play("thrust");
         this.cursorKeys = this.input.keyboard.createCursorKeys();
-        this.player.setCollideWorldBounds(true);
         this.player.setGravityY(500);
         this.player.depth = 1;
         this.player.z = 1;
