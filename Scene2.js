@@ -70,8 +70,10 @@ class Scene2 extends Phaser.Scene {
 
     update() {
         // Check for space bar input
-        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE))) {
-            this.jump();
+        if (!this.gameOverText) {
+            if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE))) {
+                this.jump();
+            }
         }
 
         if (!this.gameOverText) {
