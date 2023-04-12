@@ -19,12 +19,13 @@ class Scene2 extends Phaser.Scene {
         this.player.depth = 1;
         this.player.z = 1;
 
-        this.score = 0;
-        this.scoreText = this.add.text(config.width/2, 30, 'Score: 0', { fontSize: '24px', fill: '#000'});
-        this.scoreText.depth = 1;
-        this.scoreText.z = 1;
-        this.scoreText.setOrigin(0.5);
+        this.scoreGroup = [];
+        for (let i = 0; i < 5; i++) {
+            this.scoreGroup[i] = this.add.image(50 + i * 20, 50, "0");
+            this.scoreGroup[i].setDepth(1);
+        }
 
+        this.score = 0;
         this.createPipes();
     }
 
@@ -127,9 +128,20 @@ class Scene2 extends Phaser.Scene {
         //Scoring system
         if (this.pipe1.x <= 30 && this.pipe1.x >= 29 || this.pipe3.x <= 30 && this.pipe3.x >= 29 || this.pipe5.x <= 30 && this.pipe5.x >= 29) {
             this.score++;
-            this.scoreText.setText(`Score: ${this.score}`);
+            this.updateScore();
         }
     }
+
+    updateScore() {
+        // convert the score to a string and pad it with zeros if necessary
+        let scoreString = this.score.toString().padStart(5, "0");
+    
+        // update the images in the score group
+        for (let i = 0; i < 5; i++) {
+          let digit = scoreString.charAt(i);
+          this.scoreGroup[i].setTexture(digit);
+        }
+      }
     
     checkBottomCollision() {
         if (this.player.y >= this.pipe1.y && (this.pipe1.x >= 0 && this.pipe1.x <= this.player.x)) {
