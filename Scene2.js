@@ -25,7 +25,7 @@ class Scene2 extends Phaser.Scene {
         const pipeTwoDistance = 800;
         const pipeThreeDistance = 1000;
         const pipeFourDistance = 1200;
-        
+
         //------------------Pipe Row 1------------------------
         //Top Pipe
         this.pipe1 = this.add.sprite(pipeOneDistance, height1 + pipeDistance, "pipe");
@@ -63,23 +63,13 @@ class Scene2 extends Phaser.Scene {
         this.pipe6.displayOriginY = 0;
         this.pipe6.displayHeight = -1 * this.pipe2.height;
 
-        //------------------Pipe Row 4------------------------
-        //Top Pipe
-        //this.pipe7 = this.add.sprite(pipeFourDistance, height4 + pipeDistance, "pipe");
-        //this.pipe7.displayOriginX = 0;
-        //this.pipe7.displayOriginY = 0;
-
-        //Bottom Pipe
-        //this.pipe8 = this.add.sprite(pipeFourDistance, height4 - pipeDistance, "pipe");
-        //this.pipe8.displayOriginX = 0;
-        //this.pipe8.displayOriginY = 0;
-        //this.pipe8.displayHeight = -1 * this.pipe2.height;
+        this.playerPositionText = this.add.text(10, 10, '', { fontSize: '16px', fill: '#000' });
     }
 
     update() {
         // Check for space bar input
         if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE))) {
-        this.jump();
+            this.jump();
         }
 
         this.background.tilePositionX += 0.5;
@@ -90,12 +80,12 @@ class Scene2 extends Phaser.Scene {
         this.movePipe(this.pipe4);
         this.movePipe(this.pipe5);
         this.movePipe(this.pipe6);
-        //this.movePipe(this.pipe7);
-        //this.movePipe(this.pipe8);
+        this.checkTopCollision();
+        this.checkBottomCollision();
 
-            // Check if pipes have gone off left side of screen, and reset position if they have
+        // Check if pipes have gone off left side of screen, and reset position if they have
         const resetDistance = 535;
-            if (this.pipe1.x < -this.pipe1.width && this.pipe2.x < -this.pipe2.width) {
+        if (this.pipe1.x < -this.pipe1.width && this.pipe2.x < -this.pipe2.width) {
             this.pipe1.x = resetDistance;
             this.pipe2.x = resetDistance;
             this.resetHeight(this.pipe1, this.pipe2);
@@ -110,14 +100,41 @@ class Scene2 extends Phaser.Scene {
             this.pipe6.x = resetDistance;
             this.resetHeight(this.pipe5, this.pipe6);
         }
-        //if (this.pipe7.x < -this.pipe7.width) {
-        //    this.pipe7.x = resetDistance;
-        //}
-        //if (this.pipe8.x < -this.pipe8.width) {
-        //    this.pipe8.x = resetDistance;
-        //}
+
+        this.playerPositionText.setText(`Pipe 1 Position: x = ${this.pipe1.x}, width = ${this.pipe1.width}`);
     }
     
+    checkBottomCollision() {
+        if (this.player.y >= this.pipe1.y && (this.pipe1.x >= 0 && this.pipe1.x <= this.player.x)) {
+            this.gameOver();
+        }
+        if (this.player.y >= this.pipe3.y && (this.pipe3.x >= 0 && this.pipe3.x <= this.player.x)) {
+            this.gameOver();
+        }
+        if (this.player.y >= this.pipe5.y && (this.pipe5.x >= 0 && this.pipe5.x <= this.player.x)) {
+            this.gameOver();
+        }
+    }
+
+    checkTopCollision() {
+        if (this.player.y <= this.pipe2.y && (this.pipe2.x >= 0 && this.pipe2.x <= this.player.x)) {
+            this.gameOver();
+        }
+        if (this.player.y <= this.pipe4.y && (this.pipe4.x >= 0 && this.pipe4.x <= this.player.x)) {
+            this.gameOver();
+        }
+        if (this.player.y <= this.pipe6.y && (this.pipe6.x >= 0 && this.pipe6.x <= this.player.x)) {
+            this.gameOver();
+        }
+    }
+    
+    gameOver() {
+        this.physics.pause();
+        this.player.setTint(0xff0000);
+        this.gameOverText = this.add.text(config.width/2, config.height/2, 'Game Over', { fontSize: '32px', fill: '#fff' });
+        this.gameOverText.setOrigin(0.5);
+    }
+
     resetHeight(pipe1, pipe2) {
         const pipeDistance = 50;
         const newHeight = 100 + Math.random() * 300;
