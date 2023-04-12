@@ -24,14 +24,6 @@ class Scene2 extends Phaser.Scene {
         this.scoreText.z = 1;
         this.scoreText.setOrigin(0.5);
 
-        const pipeDistance = 50;
-        const height1 = 100 + Math.random() * 300;
-        const height2 = 100 + Math.random() * 300;
-        const height3 = 100 + Math.random() * 300;
-        const pipeOneDistance = 600;
-        const pipeTwoDistance = 800;
-        const pipeThreeDistance = 1000;
-
         this.createPipes();
     }
 
