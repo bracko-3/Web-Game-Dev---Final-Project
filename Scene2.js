@@ -14,6 +14,7 @@ class Scene2 extends Phaser.Scene {
         this.player.play("thrust");
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         this.player.setCollideWorldBounds(true);
+        this.player.setGravityY(500);
 
         const pipeDistance = 50;
         const height1 = 100 + Math.random() * 300;
@@ -22,6 +23,13 @@ class Scene2 extends Phaser.Scene {
         const pipeOneDistance = 300;
         const pipeTwoDistance = 500;
         const pipeThreeDistance = 700;
+
+        // Add collision detection between player and pipes
+        this.physics.add.collider(this.player, [this.pipe1, this.pipe2, this.pipe3, this.pipe4, this.pipe5, this.pipe6], () => {
+            // Stop the game and show game over text when player collides with a pipe
+            this.physics.pause();
+            this.add.text(200, 250, 'Game Over', { fontSize: '32px', fill: '#000' });
+          });
 
         //------------------Pipe Row 1------------------------
         //Top Pipe
@@ -62,8 +70,13 @@ class Scene2 extends Phaser.Scene {
     }
 
     update() {
-        this.movePlayerManager();
+        // Check for space bar input
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE))) {
+        this.jump();
+        }
 
+        this.background.tilePositionX += 0.5;
+        
         this.movePipe(this.pipe1);
         this.movePipe(this.pipe2);
         this.movePipe(this.pipe3);
@@ -72,16 +85,11 @@ class Scene2 extends Phaser.Scene {
         this.movePipe(this.pipe6);
     }
 
-    movePlayerManager() {
-        if(this.cursorKeys.up.isDown) {
-            this.player.setVelocityY(-gameSettings.playerSpeed);
-        }
-        else if(this.cursorKeys.down.isDown) {
-            this.player.setVelocityY(gameSettings.playerSpeed)
-        }
+    movePipe(pipe) {
+        pipe.x += -1.5;
     }
 
-    movePipe(pipe) {
-        pipe.x += -1;
+    jump() {
+        this.player.setVelocityY(-200);
     }
 }
