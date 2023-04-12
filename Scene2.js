@@ -13,6 +13,7 @@ class Scene2 extends Phaser.Scene {
         this.player.angle += 90;
         this.player.play("thrust");
         this.cursorKeys = this.input.keyboard.createCursorKeys();
+        this.player.setCollideWorldBounds(true);
         this.player.setGravityY(500);
         this.player.depth = 1;
         this.player.z = 1;
@@ -23,6 +24,18 @@ class Scene2 extends Phaser.Scene {
         this.scoreText.z = 1;
         this.scoreText.setOrigin(0.5);
 
+        const pipeDistance = 50;
+        const height1 = 100 + Math.random() * 300;
+        const height2 = 100 + Math.random() * 300;
+        const height3 = 100 + Math.random() * 300;
+        const pipeOneDistance = 600;
+        const pipeTwoDistance = 800;
+        const pipeThreeDistance = 1000;
+
+        this.createPipes();
+    }
+
+    createPipes(){
         const pipeDistance = 50;
         const height1 = 100 + Math.random() * 300;
         const height2 = 100 + Math.random() * 300;
@@ -77,6 +90,10 @@ class Scene2 extends Phaser.Scene {
             }
         }
 
+        if (!this.cursorKeys.up.isDown && this.player.body.velocity.y < 200) {
+            this.player.body.velocity.y += 10;
+        }
+
         if (!this.gameOverText) {
             this.background.tilePositionX += 0.5;
         }
@@ -90,6 +107,12 @@ class Scene2 extends Phaser.Scene {
             this.checkTopCollision();
             this.checkBottomCollision();
 
+
+        // Check if player has fallen to the ground
+        if (this.player.y + this.player.height >= this.physics.world.bounds.height) {
+            this.gameOver();
+        }
+        
         // Check if pipes have gone off left side of screen, and reset position if they have
         const resetDistance = 535;
         if (this.pipe1.x < -this.pipe1.width && this.pipe2.x < -this.pipe2.width) {
@@ -153,7 +176,11 @@ class Scene2 extends Phaser.Scene {
     }
 
     jump() {
-        this.player.setVelocityY(-200);
+        this.player.setVelocityY(-400);
+
+        if (this.player.body.touching.down) {
+            this.player.body.velocity.y = this.jumpVelocity;
+        }
     }
 
     gameOver() {
