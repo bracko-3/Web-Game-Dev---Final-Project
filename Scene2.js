@@ -15,6 +15,8 @@ class Scene2 extends Phaser.Scene {
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         this.player.setCollideWorldBounds(true);
         this.player.setGravityY(500);
+        this.player.depth = 1;
+        this.player.z = 1;
 
         const pipeDistance = 50;
         const height1 = 100 + Math.random() * 300;
@@ -74,14 +76,14 @@ class Scene2 extends Phaser.Scene {
 
         this.background.tilePositionX += 0.5;
         
-        this.movePipe(this.pipe1);
-        this.movePipe(this.pipe2);
-        this.movePipe(this.pipe3);
-        this.movePipe(this.pipe4);
-        this.movePipe(this.pipe5);
-        this.movePipe(this.pipe6);
-        this.checkTopCollision();
-        this.checkBottomCollision();
+            this.movePipe(this.pipe1);
+            this.movePipe(this.pipe2);
+            this.movePipe(this.pipe3);
+            this.movePipe(this.pipe4);
+            this.movePipe(this.pipe5);
+            this.movePipe(this.pipe6);
+            this.checkTopCollision();
+            this.checkBottomCollision();
 
         // Check if pipes have gone off left side of screen, and reset position if they have
         const resetDistance = 535;
@@ -129,7 +131,6 @@ class Scene2 extends Phaser.Scene {
     }
     
     gameOver() {
-        this.physics.pause();
         this.player.setTint(0xff0000);
         this.gameOverText = this.add.text(config.width/2, config.height/2, 'Game Over', { fontSize: '32px', fill: '#fff' });
         this.gameOverText.setOrigin(0.5);
@@ -143,7 +144,9 @@ class Scene2 extends Phaser.Scene {
     }
 
     movePipe(pipe) {
-        pipe.x += -1.5;
+        if (!this.gameOverText) {
+            pipe.x += -1.5;
+        }
     }
 
     jump() {
