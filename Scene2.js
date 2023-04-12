@@ -18,9 +18,10 @@ class Scene2 extends Phaser.Scene {
         this.player.z = 1;
 
         this.score = 0;
-        this.scoreText = this.add.text(10, 30, 'Score: 0', { fontSize: '16px', fill: '#000' });
+        this.scoreText = this.add.text(config.width/2, 30, 'Score: 0', { fontSize: '24px', fill: '#000'});
         this.scoreText.depth = 1;
         this.scoreText.z = 1;
+        this.scoreText.setOrigin(0.5);
 
         const pipeDistance = 50;
         const height1 = 100 + Math.random() * 300;
