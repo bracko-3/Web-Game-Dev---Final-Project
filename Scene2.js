@@ -18,11 +18,13 @@ class Scene2 extends Phaser.Scene {
         this.player.depth = 1;
         this.player.z = 1;
 
+        this.score = 0;
+        this.this.scoreText = this.add.text(10, 30, 'Score: 0', { fontSize: '16px', fill: '#000' });
+
         const pipeDistance = 50;
         const height1 = 100 + Math.random() * 300;
         const height2 = 100 + Math.random() * 300;
         const height3 = 100 + Math.random() * 300;
-        const height4 = 100 + Math.random() * 300;
         const pipeOneDistance = 600;
         const pipeTwoDistance = 800;
         const pipeThreeDistance = 1000;
@@ -63,8 +65,6 @@ class Scene2 extends Phaser.Scene {
         this.pipe6.displayOriginX = 0;
         this.pipe6.displayOriginY = 0;
         this.pipe6.displayHeight = -1 * this.pipe2.height;
-
-        this.playerPositionText = this.add.text(10, 10, '', { fontSize: '16px', fill: '#000' });
     }
 
     update() {
@@ -101,8 +101,6 @@ class Scene2 extends Phaser.Scene {
             this.pipe6.x = resetDistance;
             this.resetHeight(this.pipe5, this.pipe6);
         }
-
-        this.playerPositionText.setText(`Pipe 1 Position: x = ${this.pipe1.x}, width = ${this.pipe1.width}`);
     }
     
     checkBottomCollision() {
