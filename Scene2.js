@@ -76,7 +76,7 @@ class Scene2 extends Phaser.Scene {
 
     update() {
         // Check for space bar input
-        if (!this.gameOverText) {
+        if (!this.gameOver) {
             if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE))) {
                 this.jump();
             }
@@ -86,7 +86,7 @@ class Scene2 extends Phaser.Scene {
             this.player.body.velocity.y += 10;
         }
 
-        if (!this.gameOverText) {
+        if (!this.gameOver) {
             this.background.tilePositionX += 0.5;
         }
         
@@ -177,9 +177,9 @@ class Scene2 extends Phaser.Scene {
 
     gameOver() {
         this.player.setTint(0xff0000);
-        this.gameOverText = this.add.text(config.width/2, config.height/2, 'Game Over', { fontSize: '32px', fill: '#fff' });
-        this.gameOverText2 = this.add.text(config.width/2, config.height/2 + 30, (`Score: ${this.score}`), { fontSize: '24px', fill: '#fff' });
+        const gameOverImage = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "gameover");
+        this.gameOver = true;
+        this.gameOverText = this.add.text(config.width/2, config.height/2 + 40, (`Score: ${this.score}`), { fontSize: '24px', fill: '#fff' });
         this.gameOverText.setOrigin(0.5);
-        this.gameOverText2.setOrigin(0.5);
     }
 }
