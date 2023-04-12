@@ -7,6 +7,7 @@ class Scene1 extends Phaser.Scene {
         this.load.image("background", "assets/images/background2.png");
         this.load.image("ship", "assets/images/ship3");
         this.load.image("gameover", "assets/images/gameover.png")
+        this.load.image("play", "assets/images/play.png")
         this.load.image("0", "assets/images/0.png");
         this.load.image("1", "assets/images/1.png");
         this.load.image("2", "assets/images/2.png");
@@ -31,7 +32,7 @@ class Scene1 extends Phaser.Scene {
 
         this.anims.create({
             key: "thrust",
-            frames: this.anims.generateFrameimages("player"),
+            frames: this.anims.generateFrameNumbers("player"),
             frameRate: 20,
             repeat: -1
         });

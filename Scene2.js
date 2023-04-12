@@ -29,6 +29,10 @@ class Scene2 extends Phaser.Scene {
         this.createPipes();
     }
 
+    restartGame() {
+        this.scene.restart();
+    }
+
     createPipes(){
         const pipeDistance = 50;
         const height1 = 100 + Math.random() * 300;
@@ -194,5 +198,15 @@ class Scene2 extends Phaser.Scene {
         this.gameOverText = this.add.text(config.width/2, config.height/2 + 40, (`Score: ${this.score}`), { fontSize: '24px', fill: '#fff' });
         this.gameOverText.setOrigin(0.5);
         this.lost = true;
+
+        this.restartButton = this.add.sprite(config.width/2, config.height/2 + 85, 'button').setInteractive().setTexture('play');
+        this.restartButton.setDisplaySize(100, 50);
+
+        var hitZone = new Phaser.Geom.Rectangle(0, 0, 300, 80);
+        this.restartButton.input.hitArea = hitZone;
+
+        this.restartButton.on('pointerdown', () => {
+            this.restartGame();
+        });
     }
 }
