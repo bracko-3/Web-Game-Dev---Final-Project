@@ -9,6 +9,12 @@ class Scene2 extends Phaser.Scene {
         this.background.displayWidth = 500;
         this.background.displayHeight = 500;
 
+        this.background2 = this.add.tileSprite(0, 0, config.width, config.height, "gameover_background");
+        this.background2.setOrigin(0, 0);
+        this.background2.displayWidth = 500;
+        this.background2.displayHeight = 500;
+        this.background2.visible = false;
+
         this.player = this.physics.add.sprite(config.width/2 - 200, config.height/2, "player");
         this.player.angle += 90;
         this.player.play("thrust");
@@ -137,12 +143,6 @@ class Scene2 extends Phaser.Scene {
             this.gameOver();
         }
     }
-    
-    gameOver() {
-        this.player.setTint(0xff0000);
-        this.gameOverText = this.add.text(config.width/2, config.height/2, 'Game Over', { fontSize: '32px', fill: '#fff' });
-        this.gameOverText.setOrigin(0.5);
-    }
 
     resetHeight(pipe1, pipe2) {
         const pipeDistance = 50;
@@ -159,5 +159,15 @@ class Scene2 extends Phaser.Scene {
 
     jump() {
         this.player.setVelocityY(-200);
+    }
+
+    gameOver() {
+        this.player.setTint(0xff0000);
+        this.gameOverText = this.add.text(config.width/2, config.height/2, 'Game Over', { fontSize: '32px', fill: '#fff' });
+        this.gameOverText2 = this.add.text(config.width/2, config.height/2 + 30, (`Score: ${this.score}`), { fontSize: '24px', fill: '#fff' });
+        this.gameOverText.setOrigin(0.5);
+        this.gameOverText2.setOrigin(0.5);
+
+        this.background2.visible = true;
     }
 }
