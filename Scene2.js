@@ -9,12 +9,6 @@ class Scene2 extends Phaser.Scene {
         this.background.displayWidth = 500;
         this.background.displayHeight = 500;
 
-        this.background2 = this.add.tileSprite(0, 0, config.width, config.height, "gameover_background");
-        this.background2.setOrigin(0, 0);
-        this.background2.displayWidth = 500;
-        this.background2.displayHeight = 500;
-        this.background2.visible = false;
-
         this.player = this.physics.add.sprite(config.width/2 - 200, config.height/2, "player");
         this.player.angle += 90;
         this.player.play("thrust");
@@ -167,7 +161,5 @@ class Scene2 extends Phaser.Scene {
         this.gameOverText2 = this.add.text(config.width/2, config.height/2 + 30, (`Score: ${this.score}`), { fontSize: '24px', fill: '#fff' });
         this.gameOverText.setOrigin(0.5);
         this.gameOverText2.setOrigin(0.5);
-
-        this.background2.visible = true;
     }
 }
