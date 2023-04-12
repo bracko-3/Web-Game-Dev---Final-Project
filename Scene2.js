@@ -4,6 +4,7 @@ class Scene2 extends Phaser.Scene {
     }
 
     create() {
+        this.lost = false
         this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
         this.background.setOrigin(0, 0);
         this.background.displayWidth = 500;
@@ -76,7 +77,7 @@ class Scene2 extends Phaser.Scene {
 
     update() {
         // Check for space bar input
-        if (!this.gameOver) {
+        if (!this.lost) {
             if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE))) {
                 this.jump();
             }
@@ -86,7 +87,7 @@ class Scene2 extends Phaser.Scene {
             this.player.body.velocity.y += 10;
         }
 
-        if (!this.gameOver) {
+        if (!this.lost) {
             this.background.tilePositionX += 0.5;
         }
         
@@ -162,7 +163,7 @@ class Scene2 extends Phaser.Scene {
     }
 
     movePipe(pipe) {
-        if (!this.gameOverText) {
+        if (!this.lost) {
             pipe.x += -1.5;
         }
     }
@@ -178,8 +179,8 @@ class Scene2 extends Phaser.Scene {
     gameOver() {
         this.player.setTint(0xff0000);
         const gameOverImage = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "gameover");
-        this.gameOver = true;
         this.gameOverText = this.add.text(config.width/2, config.height/2 + 40, (`Score: ${this.score}`), { fontSize: '24px', fill: '#fff' });
         this.gameOverText.setOrigin(0.5);
+        this.lost = true;
     }
 }
