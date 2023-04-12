@@ -19,7 +19,9 @@ class Scene2 extends Phaser.Scene {
         this.player.z = 1;
 
         this.score = 0;
-        this.this.scoreText = this.add.text(10, 30, 'Score: 0', { fontSize: '16px', fill: '#000' });
+        this.scoreText = this.add.text(10, 30, 'Score: 0', { fontSize: '16px', fill: '#000' });
+        this.scoreText.depth = 1;
+        this.scoreText.z = 1;
 
         const pipeDistance = 50;
         const height1 = 100 + Math.random() * 300;
@@ -100,6 +102,12 @@ class Scene2 extends Phaser.Scene {
             this.pipe5.x = resetDistance;
             this.pipe6.x = resetDistance;
             this.resetHeight(this.pipe5, this.pipe6);
+        }
+
+        //Scoring system
+        if (this.pipe1.x <= 30 && this.pipe1.x >= 29 || this.pipe3.x <= 30 && this.pipe3.x >= 29 || this.pipe5.x <= 30 && this.pipe5.x >= 29) {
+            this.score++;
+            this.scoreText.setText(`Score: ${this.score}`);
         }
     }
     
