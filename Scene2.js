@@ -74,7 +74,9 @@ class Scene2 extends Phaser.Scene {
             this.jump();
         }
 
-        this.background.tilePositionX += 0.5;
+        if (!this.gameOverText) {
+            this.background.tilePositionX += 0.5;
+        }
         
             this.movePipe(this.pipe1);
             this.movePipe(this.pipe2);
