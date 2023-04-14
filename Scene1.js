@@ -1,6 +1,6 @@
 class Scene1 extends Phaser.Scene {
     constructor(){
-        super("bootGame");
+        super("startScene");
     }
 
     preload() {
@@ -18,6 +18,7 @@ class Scene1 extends Phaser.Scene {
         this.load.image("7", "assets/images/7.png");
         this.load.image("8", "assets/images/8.png");
         this.load.image("9", "assets/images/9.png");
+        this.load.image("start", "assets/images/start.png");
 
         this.load.spritesheet("player", "assets/spritesheets/player.png", {
             frameWidth: 16,
@@ -26,6 +27,7 @@ class Scene1 extends Phaser.Scene {
 
         this.load.image("pipe", "assets/images/pole.png");
     }
+    
 
     create() {
         this.scene.start("playGame");
