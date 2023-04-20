@@ -6,7 +6,7 @@ class Scene0 extends Phaser.Scene {
     preload() {
         this.load.image("background", "assets/images/background2.png");
         this.load.image("play", "assets/images/play.png");
-        this.load.image("start", "assets/images/start.png");
+        this.load.image("start", "assets/images/intro.png");
     }
     
     create() {
@@ -24,6 +24,6 @@ class Scene0 extends Phaser.Scene {
             this.scene.start("startScene");
         });
 
-        var text = this.add.text(100,100, 'Press the button to play!');
+        const gameOverImage = this.add.image(this.cameras.main.centerX, 190, "start");
     }
 }
