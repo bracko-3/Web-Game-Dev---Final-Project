@@ -7,6 +7,7 @@ class Scene0 extends Phaser.Scene {
         this.load.image("background", "assets/images/background2.png");
         this.load.image("play", "assets/images/play.png");
         this.load.image("start", "assets/images/intro.png");
+        this.load.image("2", "assets/images/2.png");
     }
     
     create() {
@@ -24,6 +25,7 @@ class Scene0 extends Phaser.Scene {
             this.scene.start("startScene");
         });
 
-        const gameOverImage = this.add.image(this.cameras.main.centerX, 190, "start");
+        const mainMenuPrompt = this.add.image(this.cameras.main.centerX, 190, "start");
+        const numberTwo = this.add.image(this.cameras.main.centerX + 105, 110, "2");
     }
 }
